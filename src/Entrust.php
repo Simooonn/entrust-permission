@@ -16,5 +16,9 @@ class Entrust
 //
 //    }
 
+    public function permission_list(){
+
+    }
+
 
 }
