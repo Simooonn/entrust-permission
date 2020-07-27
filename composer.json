@@ -4,7 +4,8 @@
     "type": "library",
     "keywords": [ "php", "laravel", "权限管理","权限", "entrust", "permission"],
     "require": {
-        "php": ">=5.6.0"
+        "php": ">=5.6.0",
+        "hashyoo/damon-function": "~1.0"
     },
     "require-dev": {
     },

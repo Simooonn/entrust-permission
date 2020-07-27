@@ -24,7 +24,34 @@ class EntrustPermissions extends BaseModel
      */
     protected $dates = [
     ];
-    
+
+    public function form_check(&$arr_input = []){
+        $arr_input = yoo_array_remain_trim($arr_input,self::table_field_keys());
+
+        return yoo_hello_success('成功');
+    }
+
+    public function form_add($arr_input = []){
+        
+        //路由名称
+        $n_length = mb_strlen($arr_input['route']);
+        if($n_length <= 0){
+            return yoo_hello_fail('路由名称不能为空');
+        }
+        if($n_length > 80){
+            return yoo_hello_fail('路由名称不能超过80字符');
+        }
+
+        //路由别名
+        $n_length = mb_strlen($arr_input['alias']);
+        if($n_length <= 0){
+            return yoo_hello_fail('路由别名不能为空');
+        }
+        if($n_length > 80){
+            return yoo_hello_fail('路由别名不能超过80字符');
+        }
+        return yoo_hello_success('成功');
+    }
 
 
     
