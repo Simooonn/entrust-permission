@@ -38,6 +38,16 @@ class HashyooEntrust
         return $result;
     }
 
+    public function user_menus($n_userid = 0){
+
+    }
+
+    public function all_menus($arr_option = []){
+        $result = EntrustPermissionsService::all_menus($arr_option);
+        return $result;
+     
+    }
+
     /**
      * 查询一条权限
      *

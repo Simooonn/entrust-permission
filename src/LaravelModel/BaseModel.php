@@ -114,9 +114,18 @@ class BaseModel extends Model
         
         $result = $query;
         if(isset($arr_with)){
+            /*案例*/
+            /*$arr_option['with'] = ['aa','bb'];*/
+            
             $result = $result->with($arr_with);
         }
         if(isset($arr_where)){
+            /*案例*/
+            /*$arr_option['where'] = [
+              'is_menu'=>1,//类型1
+              ['status','!=',2],//类型2
+            ];*/
+            
             foreach ($arr_where as $key=>$value) {
                 if(is_array($value)){
                     $result = $result->where($value[0],$value[1],$value[2]);
@@ -127,16 +136,28 @@ class BaseModel extends Model
             }
         }
         if(isset($arr_whereIn)){
+            /*案例*/
+            /*$arr_option['whereIn'] = ['role_id'=>[6,8,22]];*/
+            
             foreach ($arr_whereIn as $key=>$value) {
                 $result = $result->whereIn($key,$value);
             }
         }
         if(isset($arr_whereLike)){
+            /*案例*/
+            /*$arr_option['whereLike'] = ['name'=>'手机'];*/
+            
             foreach ($arr_whereLike as $key=>$value) {
                 $result = $result->where($key,'like','%'.$value.'%');
             }
         }
         if(isset($arr_orWhere)){
+            /*案例*/
+            /*$arr_option['orWhere'] = [
+              'is_menu'=>1,//类型1
+              ['status','!=',2],//类型2
+            ];*/
+            
             foreach ($arr_orWhere as $key=>$value) {
                 if(is_array($value)){
                     $result = $result->orWhere($value[0],$value[1],$value[2]);
@@ -147,17 +168,29 @@ class BaseModel extends Model
             }
         }
         if(isset($arr_orWhereLike)){
+            /*案例*/
+            /*$arr_option['orWhereLike'] = ['name'=>'手机'];*/
+            
             foreach ($arr_orWhereLike as $key=>$value) {
                 $result = $result->orWhere($key,'like','%'.$value.'%');
             }
         }
         if(isset($arr_select)){
+            /*案例*/
+            /*$arr_option['field'] = ['id','name','title'];*/
+            
             $result = $result->select($arr_select);
         }
         if(isset($arr_withCount)){
+            /*案例*/
+            /*$arr_option['withCount'] = ['aa','bb'];*/
+            
             $result = $result->withCount($arr_withCount);//必须放在select后面才会生效
         }
         if(isset($arr_order)){
+            /*案例*/
+            /*$arr_option['order'] = ['sort'=>'asc','id'=>'asc'];*/
+            
             foreach ($arr_order as $key=>$value) {
                 $result = $result->orderBy($key,$value);
             }

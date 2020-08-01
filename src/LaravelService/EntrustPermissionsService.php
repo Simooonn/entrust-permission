@@ -46,6 +46,18 @@ class EntrustPermissionsService extends BaseService
         $result = EntrustPermissions::en_get($arr_option)->toArray();
         return yoo_hello_success('查询成功',$result);
     }
+    
+    public function all_menus($arr_option = []){
+        if(!isset($arr_option['field'])){
+            $arr_option['field'] = ['id', 'pid', 'name', 'route', 'alias', 'ico'];
+        }
+        if(!isset($arr_option['order'])){
+            $arr_option['order'] = ['sort'=>'asc','id'=>'asc'];
+        }
+        $arr_option['where']['is_menu'] = 1;
+        $result = EntrustPermissions::en_get($arr_option)->toArray();
+        return yoo_hello_success('查询成功',$result);
+    }
 
     /**
      * 查询一条权限
