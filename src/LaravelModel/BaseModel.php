@@ -318,11 +318,10 @@ class BaseModel extends Model
     {
         $instance = self::child_model();
         $arr_option = self::enOption($arr_option);
-        $n_limit = $arr_option['limit'];
-        $arr_remain = ['with','where','whereIn','whereLike','orWhere','orWhereLike','field','order','withCount'];
-        $arr_option = yoo_array_remain($arr_option,$arr_remain);
+        $arr_remain = ['with','where','whereIn','whereLike','orWhere','orWhereLike','field','order','withCount','limit'];
+        $arr_option = yoo_array_remain(self::enOption($arr_option),$arr_remain);
         $result = self::en_query($instance,$arr_option);
-        $result = $result->paginate($n_limit);
+        $result = $result->paginate($arr_option['limit']);
         return $result;
     }
 
@@ -336,9 +335,9 @@ class BaseModel extends Model
     {
         $instance = self::child_model();
         if ($bool === true) {
-            return $instance->where('id',$n_id)->forceDelete($n_id);  //物理删除
+            return $instance->where('id',$n_id)->forceDelete();  //物理删除
         } else {
-            return $instance->where('id',$n_id)->delete($n_id);       //软删除
+            return $instance->where('id',$n_id)->delete();       //软删除
         }
     }
 
@@ -356,9 +355,9 @@ class BaseModel extends Model
         $result = self::en_query($instance,$arr_option);
 
         if ($bool === true) {
-            return $result->forceDelete($n_id);  //物理删除
+            return $result->forceDelete();  //物理删除
         } else {
-            return $result->delete($n_id);       //软删除
+            return $result->delete();       //软删除
         }
     }
 
