@@ -25,7 +25,9 @@ class EntrustRolePermission extends BaseModel
     protected $dates = [
     ];
 
-
+    public function role(){
+        return $this->belongsTo(EntrustRoles::class,'role_id');
+    }
 
     
   

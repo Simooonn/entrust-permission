@@ -38,14 +38,30 @@ class HashyooEntrust
         return $result;
     }
 
-    public function user_menus($n_userid = 0){
-
+    /**
+     * 用户菜单
+     *
+     * @param int $n_userid
+     *
+     * @return array
+     * @author wumengmeng <wu_mengmeng@foxmail.com>
+     */
+    public function user_menus($n_userid = 0,$arr_option = []){
+        $result = EntrustPermissionsService::user_menus($n_userid,$arr_option);
+        return $result;
     }
 
+    /**
+     * 所有菜单
+     *
+     * @param array $arr_option
+     *
+     * @return array
+     * @author wumengmeng <wu_mengmeng@foxmail.com>
+     */
     public function all_menus($arr_option = []){
         $result = EntrustPermissionsService::all_menus($arr_option);
         return $result;
-     
     }
 
     /**

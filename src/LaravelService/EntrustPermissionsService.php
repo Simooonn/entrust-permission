@@ -17,7 +17,7 @@ class EntrustPermissionsService extends BaseService
      *
      * @param array $arr_field
      *
-     * @return mixed
+     * @return array
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
     public function all_get($arr_option = []){
@@ -32,9 +32,9 @@ class EntrustPermissionsService extends BaseService
     /**
      * 所有权限（只含未被禁用的）
      *
-     * @param array $arr_field
+     * @param array $arr_option
      *
-     * @return mixed
+     * @return array
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
     public function normal_get($arr_option = []){
@@ -46,7 +46,15 @@ class EntrustPermissionsService extends BaseService
         $result = EntrustPermissions::en_get($arr_option)->toArray();
         return yoo_hello_success('查询成功',$result);
     }
-    
+
+    /**
+     * 所有菜单
+     *
+     * @param array $arr_option
+     *
+     * @return array
+     * @author wumengmeng <wu_mengmeng@foxmail.com>
+     */
     public function all_menus($arr_option = []){
         if(!isset($arr_option['field'])){
             $arr_option['field'] = ['id', 'pid', 'name', 'route', 'alias', 'ico'];
@@ -55,6 +63,30 @@ class EntrustPermissionsService extends BaseService
             $arr_option['order'] = ['sort'=>'asc','id'=>'asc'];
         }
         $arr_option['where']['is_menu'] = 1;
+        $result = EntrustPermissions::en_get($arr_option)->toArray();
+        return yoo_hello_success('查询成功',$result);
+    }
+
+    public function user_menus($n_userid,$arr_option = []){
+        if($n_userid <= 0){
+            return yoo_hello_fail('用户id不能为空');
+        }
+
+        if(!isset($arr_option['field'])){
+            $arr_option['field'] = ['id', 'pid', 'name', 'route', 'alias', 'ico'];
+        }
+        if(!isset($arr_option['order'])){
+            $arr_option['order'] = ['sort'=>'asc','id'=>'asc'];
+        }
+        $arr_option['where']['is_menu'] = 1;
+        $arr_option['whereHas'] = [
+          'role_permission.role.user_role' => [
+            'where'   => [
+              'user_id' => $n_userid,//类型1
+            ],
+          ],
+        ];
+
         $result = EntrustPermissions::en_get($arr_option)->toArray();
         return yoo_hello_success('查询成功',$result);
     }

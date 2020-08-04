@@ -25,6 +25,10 @@ class EntrustRoles extends BaseModel
     protected $dates = [
     ];
 
+    public function user_role(){
+        return $this->belongsTo(EntrustUserRole::class,'id','role_id');
+    }
+
     public function form_add($arr_input = []){
         
         //角色名称
