@@ -10,25 +10,26 @@ namespace HashyooEntrust\LaravelModel;
 
 class EntrustRolePermission extends BaseModel
 {
-    
+
     protected $table = 'entrust_role_permission';
-    
+
     protected $guarded = [];
-    
+
     //public $timestamps = false;
-    
+
     /**
      * 应该被调整为日期的属性
      *
      * @var array
      */
-    protected $dates = [
-    ];
+    protected $dates
+      = [
+      ];
 
-    public function role(){
-        return $this->belongsTo(EntrustRoles::class,'role_id');
+    public function role()
+    {
+        return $this->belongsTo(EntrustRoles::class, 'role_id');
     }
 
-    
-  
+
 }

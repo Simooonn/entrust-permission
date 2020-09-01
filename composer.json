@@ -5,7 +5,8 @@
     "keywords": [ "php", "laravel", "权限管理","权限", "entrust", "permission"],
     "require": {
         "php": ">=5.6.0",
-        "hashyoo/damon-function": "~1.0"
+        "hashyoo/damon-function": "~1.0",
+        "hashyoo/fast-laravel-orm": "~1.0"
     },
     "require-dev": {
     },

@@ -5,6 +5,7 @@
  * Date: 2019/08/20
  * Time: 06:01
  */
+
 namespace HashyooEntrust\LaravelService;
 
 use HashyooEntrust\LaravelModel\EntrustPermissions;
@@ -22,32 +23,32 @@ class EntrustRolePermissionService extends BaseService
      * @return array
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function insert($n_id = 0,$arr_ids = []){
-        if($n_id <= 0){
+    public function insert($n_id = 0, $arr_ids = [])
+    {
+        if ($n_id <= 0) {
             return yoo_hello_fail('数据id不能为空');
         }
-//        if(count($arr_ids) <= 0){
-//            return yoo_hello_fail('请选择权限');
-//        }
+        //        if(count($arr_ids) <= 0){
+        //            return yoo_hello_fail('请选择权限');
+        //        }
 
         //删除之前的数据
-        $arr_option = ['where'=>['role_id'=>$n_id]];
-        $result = EntrustRolePermission::en_del($arr_option);
-        if(!($result >= 0)){
-            return yoo_hello_fail('操作失败','删除失败');
+        $option = ['where' => ['role_id' => $n_id]];
+        $result = EntrustRolePermission::lara_del_true($option);
+        if (!($result >= 0)) {
+            return yoo_hello_fail('操作失败', '删除失败');
         }
 
         //重新添加新的数据
         $arr_data = [];
-        foreach ($arr_ids as $value)
-        {
-            $arr_data[] = ['role_id'=>$n_id,'permission_id'=>$value];
+        foreach ($arr_ids as $value) {
+            $arr_data[] = ['role_id' => $n_id, 'permission_id' => $value];
         }
-        $result = EntrustRolePermission::insert($arr_data);
-        if( !$result ){
+        $result = EntrustRolePermission::lara_insert($arr_data);
+        if (!$result) {
             return yoo_hello_fail('设置失败');
         }
-        return  yoo_hello_success('设置成功');
+        return yoo_hello_success('设置成功');
     }
 
     /**
@@ -58,15 +59,17 @@ class EntrustRolePermissionService extends BaseService
      * @return array
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function permission_ids($arr_ids = []){
-        if(count($arr_ids) <= 0 ){
+    public function permission_ids($arr_ids = [])
+    {
+        if (count($arr_ids) <= 0) {
             return yoo_hello_fail('数据id不能为空');
         }
 
-        $arr_option = ['whereIn'=>['role_id'=>$arr_ids],'order'=>[]];
-        $result = EntrustRolePermission::en_get($arr_option)->toarray();
-        $result = array_column($result,'permission_id');
-        return  yoo_hello_success('成功',$result);
+        $option = ['whereIn' => ['role_id' => $arr_ids], 'orderBy' => []];
+        $result = EntrustRolePermission::lara_all($option)
+                                       ->toarray();
+        $result = array_column($result, 'permission_id');
+        return yoo_hello_success('成功', $result);
     }
 
     /**
@@ -77,17 +80,22 @@ class EntrustRolePermissionService extends BaseService
      * @return array
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function permissions($arr_ids){
-        if(count($arr_ids) <= 0 ){
+    public function permissions($arr_ids)
+    {
+        if (count($arr_ids) <= 0) {
             return yoo_hello_fail('数据id不能为空');
         }
 
-        $result = EntrustPermissions::whereHas('role_permission',
-          function ($query)
-          use ($arr_ids) {
-              $query->whereIn('role_id', $arr_ids);
-          })->get()->toarray();
-        return  yoo_hello_success('成功',$result);
+        $option = [
+          'whereHas' => [
+            'role_permission' => [
+              'whereIn' => ['role_id' => $arr_ids],
+            ],
+          ],
+        ];
+        $result = EntrustPermissions::lara_all($option)
+                                    ->toarray();
+        return yoo_hello_success('成功', $result);
 
     }
 
