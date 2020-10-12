@@ -45,6 +45,21 @@ class HashyooEntrust
     }
 
     /**
+     * 用户权限
+     *
+     * @param int   $n_userid
+     * @param array $option
+     *
+     * @return array
+     * @author wumengmeng <wu_mengmeng@foxmail.com>
+     */
+    public function user_permissions($n_userid = 0, $option = [])
+    {
+        $result = EntrustPermissionsService::user_permissions($n_userid, $option);
+        return $result;
+    }
+
+    /**
      * 用户菜单
      *
      * @param int   $n_userid

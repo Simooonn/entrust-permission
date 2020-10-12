@@ -65,6 +65,37 @@ class EntrustPermissionsService extends BaseService
     }
 
     /**
+     * 用户权限
+     *
+     * @param       $n_userid
+     * @param array $option
+     *
+     * @return array
+     * @author wumengmeng <wu_mengmeng@foxmail.com>
+     */
+    public function user_permissions($n_userid, $option = [])
+    {
+        if ($n_userid <= 0) {
+            return yoo_hello_fail('用户id不能为空');
+        }
+
+//        $option['field']            = isset($option['field']) ? $option['field'] : ['id', 'pid', 'name', 'route', 'alias', 'ico'];
+        $option['orderBy']          = isset($option['orderBy']) ? $option['orderBy'] : ['sort' => 'asc', 'id' => 'asc'];
+//        $option['where']['is_menu'] = 1;
+        $option['whereHas']         = [
+          'role_permission.role.user_role' => [
+            'where' => [
+              'user_id' => $n_userid,//类型1
+            ],
+          ],
+        ];
+
+        $result = EntrustPermissions::lara_all($option)
+                                    ->toArray();
+        return yoo_hello_success('查询成功', $result);
+    }
+
+    /**
      * 用户菜单
      *
      * @param       $n_userid
