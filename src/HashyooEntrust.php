@@ -388,5 +388,19 @@ class HashyooEntrust
         return $result;
     }
 
+    /**
+     * 用户角色
+     *
+     * @param int $uid
+     *
+     * @return array
+     * @author wumengmeng <wu_mengmeng@foxmail.com>
+     */
+    public function user_roles($uid = 0)
+    {
+        $result = EntrustUserRoleService::user_roles($uid);
+        return $result;
+    }
+
 
 }

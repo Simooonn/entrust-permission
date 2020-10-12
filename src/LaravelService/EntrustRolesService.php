@@ -88,13 +88,6 @@ class EntrustRolesService extends BaseService
             return $result;
         }
 
-        //角色名称不能重复
-        $option = ['where' => yoo_array_remain($arr_input, ['name'])];
-        $result = EntrustRoles::lara_count($option);
-        if ($result > 0) {
-            return yoo_hello_fail('角色名称重复');
-        }
-
         //添加角色
         $result = EntrustRoles::lara_create($arr_input)
                               ->toarray();
@@ -120,20 +113,6 @@ class EntrustRolesService extends BaseService
         $n_id = intval($arr_input['id']);
         if ($n_id <= 0) {
             return yoo_hello_fail('数据id不能为空');
-        }
-
-        //角色名称不能重复
-        if (isset($arr_input['name'])) {
-            $arr_where['name'] = $arr_input['name'];
-        }
-
-        if (count($arr_where) > 0) {
-            $arr_where[] = ['id', '!=', $n_id];
-            $option      = ['where' => $arr_where];
-            $result      = EntrustRoles::lara_count($option);
-            if ($result > 0) {
-                return yoo_hello_fail('角色名称重复');
-            }
         }
 
         //修改角色

@@ -50,5 +50,20 @@ class EntrustUserRoleService extends BaseService
         return yoo_hello_success('设置成功');
     }
 
+    /**
+     * 用户角色
+     *
+     * @param int $uid
+     *
+     * @return array
+     * @author wumengmeng <wu_mengmeng@foxmail.com>
+     */
+    public function user_roles($uid = 0)
+    {
+        $arr_option['where']['user_id'] = $uid;
+        $result = EntrustUserRole::lara_all($arr_option)->toarray();
+        return yoo_hello_success('获取成功',$result);
+    }
+
 
 }
